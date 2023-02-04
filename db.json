@@ -1,0 +1,21 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "email": "a@a.com",
+      "password": "aaaa",
+      "nickname": "dlwngur",
+      "profile": ""
+    }
+  ],
+  "Group": [
+    {
+      "id": "JOJANGE1",
+      "leader": " dlwngur",
+      "startdate": "2023.01.29",
+      "enddate": "2023.02.15",
+      "participant": ["dlwngur", "dhwogh"],
+      "profile": ""
+    }
+  ]
+}
