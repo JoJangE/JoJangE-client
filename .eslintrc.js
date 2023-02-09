@@ -27,7 +27,7 @@ module.exports = {
       },
     },
   ],
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', '@emotion'],
   rules: {
     'react/react-in-jsx-scope': 0,
     'react/prefer-stateless-function': 0,
@@ -36,6 +36,8 @@ module.exports = {
     'no-nested-ternary': 0,
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/consistent-type-definitions': 'off',
+    'react/no-unknown-property': ['error', { ignore: ['css'] }],
+    '@emotion/pkg-renaming': 'error',
   },
   settings: {
     react: {
