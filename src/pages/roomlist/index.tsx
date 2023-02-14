@@ -19,7 +19,7 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 // import { makeStyles } from '@material-ui/core/styles';
 // import { Add } from '@material-ui/icons';
 
-export default function RecipeReviewCard() {
+export default function RoomList() {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   const MyOptions = ['설정 바꾸기', '나가기', '프로젝트 삭제하기'];
