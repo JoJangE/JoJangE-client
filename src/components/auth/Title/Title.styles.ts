@@ -1,8 +1,8 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 export const Title = styled.header`
   white-space: nowrap;
-  width: 67px;
+  //  width: 67px;
   height: 35px;
 
   font-family: 'Noto Sans KR';
@@ -14,5 +14,5 @@ export const Title = styled.header`
   margin-bottom: 65px;
 
   justify-self: center;
-  padding-right: 25px;
-`
+  //  padding-right: 25px;
+`;

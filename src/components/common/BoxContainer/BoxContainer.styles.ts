@@ -1,6 +1,6 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
-export const AuthContainer = styled.div`
+export const BoxContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
@@ -13,4 +13,4 @@ export const AuthContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 333px;
-`
+`;

@@ -1,21 +1,21 @@
-import { useRouter } from 'next/router'
-import { paths } from '../../constants/paths'
-import useTokenCheck from '../../hooks/auth/useTokenCheck'
+import { useRouter } from 'next/router';
+import { paths } from '../../constants/paths';
+import useTokenCheck from '../../hooks/auth/useTokenCheck';
 
-type ValueOf<T> = T[keyof T]
+type ValueOf<T> = T[keyof T];
 
 type Props = {
-  path?: ValueOf<typeof paths>
-  children: JSX.Element
-}
+  path?: ValueOf<typeof paths>;
+  children: JSX.Element;
+};
 
 export const RequireNoAuth = ({ path = '/', children: element }: Props): JSX.Element => {
-  const router = useRouter()
-  const { isAuthority } = useTokenCheck()
+  const router = useRouter();
+  const { isAuthority } = useTokenCheck();
 
   if (typeof window !== 'undefined' && isAuthority === true) {
-    void router.replace(path)
+    void router.replace(path);
   }
 
-  return isAuthority ?? false ? <div>x</div> : element
-}
+  return isAuthority ?? false ? <div></div> : element;
+};
