@@ -17,12 +17,14 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 // import Button from '@mui/material/Button';
 
 // import { makeStyles } from '@material-ui/core/styles';
-// import { Add } from '@material-ui/icons';
-
+import AddIcon from '@mui/icons-material/Add';
+import defaultAPI from '../../api/api';
+import { useRouter } from 'next/router';
 export default function RoomList() {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
 
   const MyOptions = ['설정 바꾸기', '나가기', '프로젝트 삭제하기'];
+  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -54,6 +56,7 @@ export default function RoomList() {
           justifyContent: 'space-between',
           paddingBottom: '8px',
           borderRadius: '8px',
+          marginBottom: '40px',
         }}
       >
         <CardHeader
@@ -85,6 +88,13 @@ export default function RoomList() {
             justifyContent: 'space-between',
             alignItems: 'center',
             margin: '0 20px',
+            cursor: 'pointer',
+          }}
+          onClick={(e: any) => {
+            e.preventDefault();
+            router.push('/project').catch((err) => {
+              console.log(err);
+            });
           }}
         >
           <Typography color='black' sx={{ fontWeight: 700, marginBottom: 0, fontSize: 20 }}>
@@ -101,9 +111,9 @@ export default function RoomList() {
           </AvatarGroup>
         </div>
       </Card>
-      {/* <IconButton>
-        <Add/>
-      </IconButton> */}
+      <IconButton sx={{ backgroundColor: '#004D40', width: '48px', height: '48px' }}>
+        <AddIcon sx={{ color: 'white', width: '28px', height: '28px ' }} />
+      </IconButton>
     </div>
   );
 }
