@@ -1,15 +1,16 @@
-import Button from '../../common/Button/Button'
-import Input from '../../common/Input/Input'
-import validate from '../../../utils/validate/AuthValidate'
-import useForm from '../../../hooks/common/useForm'
-import * as S from './SignUpForm.styles'
-import { useRouter } from 'next/router'
-import axios from 'axios'
-import { ACCESS_TOKEN_KEY } from '../../../constants/token/token.constant'
-import token from '../../../api/token'
+import Button from '../../common/Button/Button';
+import Input from '../../common/Input/Input';
+import validate from '../../../utils/validate/AuthValidate';
+import useForm from '../../../hooks/common/useForm';
+import * as S from './SignUpForm.styles';
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import { ACCESS_TOKEN_KEY } from '../../../constants/token/token.constant';
+import token from '../../../api/token';
+import { paths } from '../../../constants/paths';
 
 export function SignUpForm() {
-  const router = useRouter()
+  const router = useRouter();
   const axiosSignUpPost = (values: any) => {
     axios
       .post('http://localhost:8080/users/create', {
@@ -17,14 +18,14 @@ export function SignUpForm() {
         password: values.password,
       })
       .then((response) => {
-        token.setToken(ACCESS_TOKEN_KEY, response.data.token)
-        void router.push('/')
+        token.setToken(ACCESS_TOKEN_KEY, response.data.token);
+        void router.push(paths.root);
       })
       .catch((err) => {
-        console.error('err', err)
-        alert('오류 : 회원가입에 실패했습니다.')
-      })
-  }
+        console.error('err', err);
+        alert('오류 : 회원가입에 실패했습니다.');
+      });
+  };
 
   const { values, errors, handleChange, handleSubmit, submitting } = useForm({
     initialValues: {
@@ -36,14 +37,14 @@ export function SignUpForm() {
     onSubmit: () => {
       alert(
         `회원가입 시도:::'email :', ${values.email}, 'password :', ${values.password}, 닉네임 : ${values.nickname}`,
-      )
+      );
     },
     validate,
-  })
+  });
 
   const checkEmail = () => {
-    alert(`이메일 중복 체크 : ${values.email}`)
-  }
+    alert(`이메일 중복 체크 : ${values.email}`);
+  };
 
   return (
     <S.SignUpForm onSubmit={handleSubmit}>
@@ -90,7 +91,7 @@ export function SignUpForm() {
         회원가입 하기
       </Button>
     </S.SignUpForm>
-  )
+  );
 }
 
-export default SignUpForm
+export default SignUpForm;

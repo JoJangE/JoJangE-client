@@ -1,15 +1,14 @@
 import { useRouter } from 'next/router';
 import { paths } from '../../constants/paths';
 import useTokenCheck from '../../hooks/auth/useTokenCheck';
-
-type ValueOf<T> = T[keyof T];
+import { ValueOf } from '../../types';
 
 type Props = {
   path?: ValueOf<typeof paths>;
   children: JSX.Element;
 };
 
-export const RequireNoAuth = ({ path = '/', children: element }: Props): JSX.Element => {
+export const RequireNoAuth = ({ path = paths.root, children: element }: Props): JSX.Element => {
   const router = useRouter();
   const { isAuthority } = useTokenCheck();
 

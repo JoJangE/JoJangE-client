@@ -1,10 +1,7 @@
+import { childrenProps } from '../../../types';
 import * as S from './BoxContainer.styles';
 
-type Props = {
-  children: React.ReactNode;
-};
-
-function BoxContainer({ children }: Props) {
+function BoxContainer({ children }: childrenProps) {
   return (
     <S.BoxContainer>
       <>{children}</>

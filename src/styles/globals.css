@@ -255,9 +255,11 @@ body {
 }
 
 button {
+  background: inherit;
   border: none;
-  background-color: inherit;
-}
-button:hover {
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  overflow: visible;
   cursor: pointer;
 }

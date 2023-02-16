@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 export const Button = styled.button`
   font-family: 'Noto Sans KR';
@@ -6,7 +6,6 @@ export const Button = styled.button`
   font-weight: 700;
   font-size: 20px;
   line-height: 29px;
-  /* identical to box height */
 
   color: #ffffff;
   border: 1px solid #00897b1a;
@@ -21,4 +20,4 @@ export const Button = styled.button`
   &:hover {
     filter: brightness(0.9);
   }
-`
+`;

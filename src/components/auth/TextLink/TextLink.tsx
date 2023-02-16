@@ -1,8 +1,8 @@
-import { ButtonHTMLAttributes } from 'react'
-import * as S from './TextLink.styles'
+import { ButtonHTMLAttributes } from 'react';
+import * as S from './TextLink.styles';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 export function TextLink({ children, ...props }: ButtonProps) {
@@ -10,5 +10,5 @@ export function TextLink({ children, ...props }: ButtonProps) {
     <S.TextLink type='button' {...props}>
       {children}
     </S.TextLink>
-  )
+  );
 }
