@@ -11,6 +11,8 @@ export function LoginForm() {
       password: '',
     },
     onSubmit: () => {
+      // api 도입후, loginPost로 변경
+      // loginPost
       alert(
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         `로그인 시도:::'email :', ${values.email}, 'password :', ${values.password}`,

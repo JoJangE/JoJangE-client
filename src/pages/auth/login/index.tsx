@@ -5,7 +5,6 @@ import { TextLink } from '../../../components/auth/TextLink/TextLink';
 import Title from '../../../components/auth/Title/Title';
 import { RequireNoAuth } from '../../../utils/hoc';
 import { paths } from '../../../constants/paths';
-// import * as S from './styles'
 
 function Login() {
   const router = useRouter();

@@ -10,7 +10,7 @@ interface NavBarProps {
 export function NavBar({ beforeUrl = '/' }: NavBarProps) {
   const router = useRouter();
 
-  const redirect = (url: string) => {
+  const moveUrl = (url: string) => {
     void router.push(url);
   };
 
@@ -19,7 +19,7 @@ export function NavBar({ beforeUrl = '/' }: NavBarProps) {
       <S.Navbar>
         <S.BackButton
           onClick={() => {
-            redirect(beforeUrl);
+            moveUrl(beforeUrl);
           }}
         >
           &#60;
@@ -27,7 +27,7 @@ export function NavBar({ beforeUrl = '/' }: NavBarProps) {
         </S.BackButton>
         <S.LogoBox
           onClick={() => {
-            redirect(paths.root);
+            moveUrl(paths.root);
           }}
         >
           Logo
