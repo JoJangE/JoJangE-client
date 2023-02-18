@@ -1,14 +1,13 @@
 import { useRouter } from 'next/router';
 import { paths } from '../../constants/paths';
 import useTokenCheck from '../../hooks/auth/useTokenCheck';
-
-type ValueOf<T> = T[keyof T];
+import { ValueOf } from '../../types';
 
 type Props = {
   path?: ValueOf<typeof paths>;
   children: JSX.Element;
 };
-export const RequireAuth = ({ path = '/auth/login', children: element }: Props): JSX.Element => {
+export const RequireAuth = ({ path = paths.login, children: element }: Props): JSX.Element => {
   const router = useRouter();
   const { isAuthority } = useTokenCheck();
 
@@ -22,7 +21,7 @@ export const RequireAuth = ({ path = '/auth/login', children: element }: Props):
   return isAuthority ? (
     element
   ) : (
-    //    <button onClick={() => router.push('/auth/login')}>로그인해 주세요</button>
+    //    <button onClick={() => router.push(paths.login)}>로그인해 주세요</button>
     <div></div>
   );
 };

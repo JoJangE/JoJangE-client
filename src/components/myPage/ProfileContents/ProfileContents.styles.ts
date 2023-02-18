@@ -6,7 +6,6 @@ export const ProfileNickName = styled.span`
   font-weight: 700;
   font-size: 24px;
   line-height: 29px;
-  /* identical to box height */
 
   color: #191919;
 

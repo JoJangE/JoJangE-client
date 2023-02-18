@@ -5,24 +5,22 @@ import { paths } from '../../constants/paths';
 import { ACCESS_TOKEN_KEY } from '../../constants/token/token.constant';
 import { StringType } from '../../types';
 
-export const loginPost = (values: StringType) => {
+export const signUpPost = (values: StringType) => {
   const router = useRouter();
 
   client
-    .post('/users/login', {
+    .post('/users/create', {
       email: values.email,
       password: values.password,
     })
     .then((response) => {
       token.setToken(ACCESS_TOKEN_KEY, response.data.token);
-
-      // ts 에러
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
-      router.push(paths.root);
+      void router.push(paths.root);
     })
     .catch((err) => {
       console.error('err', err);
+      alert('오류 : 회원가입에 실패했습니다.');
     });
 };
 
-export default loginPost;
+export default signUpPost;

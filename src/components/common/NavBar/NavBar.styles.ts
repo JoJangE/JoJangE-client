@@ -60,7 +60,6 @@ export const LogoBox = styled.div`
   /* width: 68px;
   height: 29px;
   font-size: 30px; */
-  width: 56px;
   height: 29px;
   left: 167px;
   top: 60px;
@@ -71,9 +70,13 @@ export const LogoBox = styled.div`
   font-weight: 700;
   font-size: 20px;
   line-height: 29px;
-  /* identical to box height */
 
   color: #000000;
+
+  &:hover {
+    cursor: pointer;
+    filter: brightness(1.2);
+  }
 `;
 export const Profile = styled.div`
   margin-right: 50px;

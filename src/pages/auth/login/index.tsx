@@ -3,21 +3,19 @@ import BoxContainer from '../../../components/common/BoxContainer/BoxContainer';
 import LoginForm from '../../../components/auth/LoginForm/LoginForm';
 import { TextLink } from '../../../components/auth/TextLink/TextLink';
 import Title from '../../../components/auth/Title/Title';
-import Navbar from '../../../components/common/NavBar/NavBar';
 import { RequireNoAuth } from '../../../utils/hoc';
-// import * as S from './styles'
+import { paths } from '../../../constants/paths';
 
 function Login() {
   const router = useRouter();
 
   const goSignup = () => {
-    void router.push('/auth/signup');
+    void router.push(paths.signIn);
   };
 
   return (
     <RequireNoAuth>
       <>
-        <Navbar />
         <BoxContainer>
           <Title>로그인</Title>
           <LoginForm />

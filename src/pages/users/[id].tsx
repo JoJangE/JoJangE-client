@@ -1,13 +1,12 @@
 // URL :: post/[id]
 
 import { useRouter } from 'next/router';
-import NavBar from '../../components/common/NavBar/NavBar';
 // import { RequireAuth } from '../../utils/hoc';
 import BoxContainer from '../../components/common/BoxContainer/BoxContainer';
 import Title from '../../components/auth/Title/Title';
 import UserIcon from '../../components/common/UserIcon';
-import AddProfile from '../../components/profile/AddProfile';
-import ProfileContents from '../../components/profile/ProfileContents';
+import AddProfile from '../../components/myPage/AddProfile';
+import ProfileContents from '../../components/myPage/ProfileContents';
 
 const MyProfile = () => {
   const router = useRouter();
@@ -21,7 +20,6 @@ const MyProfile = () => {
   return (
     // <RequireAuth>
     <>
-      <NavBar />
       <BoxContainer>
         <Title>마이페이지</Title>
         <div>

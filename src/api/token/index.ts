@@ -1,17 +1,22 @@
-import { ACCESS_TOKEN_KEY } from '../../constants/token/token.constant'
+import { ACCESS_TOKEN_KEY } from '../../constants/token/token.constant';
+import {
+  getLocalStorage,
+  removeLocalStorage,
+  setLocalStorage,
+} from '../../utils/localStorage/localStorage';
 
 class Token {
   public getToken(key: string): string | null {
-    return localStorage.getItem(key)
+    return getLocalStorage(key);
   }
 
   public setToken(key: string, token: string): void {
-    localStorage.setItem(key, token)
+    setLocalStorage(key, token);
   }
 
   public clearToken() {
-    localStorage.removeItem(ACCESS_TOKEN_KEY)
+    removeLocalStorage(ACCESS_TOKEN_KEY);
   }
 }
 
-export default new Token()
+export default new Token();

@@ -1,4 +1,4 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 export const TextLink = styled.button`
   font-size: 24px;
@@ -20,4 +20,4 @@ export const TextLink = styled.button`
     font-weight: 600;
   }
   //  background-color: #d9d9d9;
-`
+`;
