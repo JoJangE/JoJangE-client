@@ -1,119 +1,81 @@
-import React from 'react';
+import styled from '@emotion/styled';
+import RoomCard from '../../components/roomlist/RoomCard';
+import RoomAddButton from '../../components/roomlist/RoomAddBotton';
+import { IheaderProp, IbottomProp, IroomList } from '../../types/roomListType';
 
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-// import { CardActionArea } from '@mui/material';
+// const headerProp = { startdate, enddate, participant, profile };
+// const bottombarProp = { id, leader };
 
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+const RoomContainer = styled.div`
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+`;
 
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-
-import AvatarGroup from '@mui/material/AvatarGroup';
-
-// import Button from '@mui/material/Button';
-
-// import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@mui/icons-material/Add';
-import defaultAPI from '../../api/api';
-import { useRouter } from 'next/router';
 export default function RoomList() {
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-
-  const MyOptions = ['설정 바꾸기', '나가기', '프로젝트 삭제하기'];
-  const router = useRouter();
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const open = Boolean(anchorEl);
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  const data = [
+    {
+      id: 'JOJANGE1',
+      leader: ' dlwngur',
+      startdate: '2023.01.29',
+      enddate: '2023.02.15',
+      participant: ['dlwngur', 'dhwogh'],
+      profile: '',
+    },
+    {
+      id: 'JOJANGE1',
+      leader: ' dlwngur',
+      startdate: '2023.01.29',
+      enddate: '2023.02.15',
+      participant: ['dlwngur', 'dhwogh'],
+      profile: '',
+    },
+    {
+      id: 'JOJANGE1',
+      leader: ' dlwngur',
+      startdate: '2023.01.29',
+      enddate: '2023.02.15',
+      participant: ['dlwngur', 'dhwogh'],
+      profile: '',
+    },
+    {
+      id: 'JOJANGE1',
+      leader: ' dlwngur',
+      startdate: '2023.01.29',
+      enddate: '2023.02.15',
+      participant: ['dlwngur', 'dhwogh'],
+      profile: '',
+    },
+    {
+      id: 'JOJANGE1',
+      leader: ' dlwngur',
+      startdate: '2023.01.29',
+      enddate: '2023.02.15',
+      participant: ['dlwngur', 'dhwogh'],
+      profile: '',
+    },
+    {
+      id: 'JOJANGE1',
+      leader: ' dlwngur',
+      startdate: '2023.01.29',
+      enddate: '2023.02.15',
+      participant: ['dlwngur', 'dhwogh'],
+      profile: '',
+    },
+  ];
   return (
-    <div
-      style={{
-        width: '100vw',
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        alignItems: 'center',
-        height: '100vh',
-      }}
-    >
-      <Card
-        sx={{
-          width: '320px',
-          height: '150px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          paddingBottom: '8px',
-          borderRadius: '8px',
-          marginBottom: '40px',
-        }}
-      >
-        <CardHeader
-          action={
-            <div>
-              <IconButton
-                aria-label='more'
-                onClick={handleClick}
-                aria-haspopup='true'
-                aria-controls='long-menu'
-              >
-                <MoreVertIcon />
-              </IconButton>
-              <Menu anchorEl={anchorEl} keepMounted onClose={handleClose} open={open}>
-                {MyOptions.map((option) => (
-                  <MenuItem key={option} onClick={handleClose}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Menu>
-            </div>
-          }
-          subheader='September 14, 2016'
-        />
+    <RoomContainer>
+      {data.map((element: IroomList, i: number) => {
+        const { id, leader, startdate, enddate, participant, profile }: IroomList = element;
+        const headerProp: IheaderProp = { startdate, enddate, profile };
+        const bottombarProp: IbottomProp = { id, leader, participant };
+        return <RoomCard key={i} headerProp={headerProp} bottombarProp={bottombarProp} />;
+      })}
 
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            margin: '0 20px',
-            cursor: 'pointer',
-          }}
-          onClick={(e: any) => {
-            e.preventDefault();
-            router.push('/project').catch((err) => {
-              console.log(err);
-            });
-          }}
-        >
-          <Typography color='black' sx={{ fontWeight: 700, marginBottom: 0, fontSize: 20 }}>
-            프로젝트 1
-          </Typography>
-          <AvatarGroup max={2}>
-            <Avatar alt={'abcd'[0]} src='/static/images/avatar/2.jpg' />
-            <Avatar alt='dhwogh' src='/static/images/avatar/2.jpg' />
-            <Avatar alt='rlaaudrbs' src='/static/images/avatar/3.jpg' />
-            <Avatar alt='ehdmsco' src='/static/images/avatar/4.jpg' />
-            <Avatar alt='Trevor Henderson' src='/static/images/avatar/5.jpg' />
-            <Avatar alt='Trevor Henderson' src='/static/images/avatar/5.jpg' />
-            <Avatar alt='Trevor Henderson' src='/static/images/avatar/5.jpg' />
-          </AvatarGroup>
-        </div>
-      </Card>
-      <IconButton sx={{ backgroundColor: '#004D40', width: '48px', height: '48px' }}>
-        <AddIcon sx={{ color: 'white', width: '28px', height: '28px ' }} />
-      </IconButton>
-    </div>
+      <RoomAddButton />
+    </RoomContainer>
   );
 }
