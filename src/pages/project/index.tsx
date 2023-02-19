@@ -101,6 +101,16 @@ function Cell(props: cellProps) {
   );
 }
 
+const day = ['월', '화', '수', '목', '금', '토', '일'];
+const timeArr: Array<number | string> = [];
+for (let i = 0; i <= 24; i++) {
+  if (i === 0) {
+    timeArr[i] = '';
+  } else {
+    timeArr[i] = i;
+  }
+}
+
 function Schedule(props: {
   data: cellInfo[][];
   func: { updateSchedule: (e: any) => void; startUpdateSchedule: (e: any) => void };
@@ -109,9 +119,24 @@ function Schedule(props: {
 
   return (
     <CellContainer>
+      <CellColumnContainer key={100}>
+        {timeArr.map((element, i) => {
+          return (
+            <div
+              key={i}
+              style={{ width: '32px', height: '18px', textAlign: 'right', fontSize: '8px' }}
+            >
+              {element}
+            </div>
+          );
+        })}
+      </CellColumnContainer>
       {data.map((cellArr, i) => {
         return (
           <CellColumnContainer key={i}>
+            <div style={{ width: '32px', height: '18px', textAlign: 'center', fontSize: '10px' }}>
+              {day[i]}
+            </div>
             {cellArr.map((cell, j) => {
               const id = `${i}${j}`.toString();
               const { time, checked } = cell;
@@ -134,17 +159,6 @@ function Schedule(props: {
     </CellContainer>
   );
 }
-
-// const Cell = styled.div(
-//   {
-//     border: '1px solid black',
-//     width: '32px',
-//     height: '18px',
-//   },
-//   (props: { checked: boolean; time: number; col: number; row: number }) => ({
-//     'background-color': props.checked ? '#00897B' : 'white',
-//   }),
-// );
 
 const CellContainer = styled.div`
   display: flex;
@@ -180,30 +194,25 @@ function initializeSchedule() {
 }
 
 export default function Project() {
-  // const [cellInfo, setCellInfo] = useState();
-
   const [schedule, setSchedule] = useState<cellInfo[][]>(() => {
     return initializeSchedule();
   });
-  // const [isClicked, setIsClicked] = useState<boolean>(false);
+
   const [anchor, setAnchor] = useState({
     anchorCol: 0,
     anchorRow: 0,
     startRow: 0,
     anchorChecked: false,
   });
+
   const [start, setStart] = useState(false);
-  // const [state, dispatch] = useReducer(reducer, initializeSchedule())
-  // onmouseup => container or whole page
-  // onMouseDown => cell => Clicked true , update ClickedPosition ,setschedule => 클릭한 셀 업데이트
-  // onMouseOver => cell
+
   function startUpdateSchedule(e: any) {
     e.preventDefault();
-    // const time = e.currentTarget.getAttribute('time');
     const col = e.currentTarget.getAttribute('col');
     const row = e.currentTarget.getAttribute('row');
 
-    const { time, checked } = schedule[col][row];
+    const { checked } = schedule[col][row];
 
     setAnchor((current) => {
       return { ...current, anchorCol: col, anchorRow: row, startRow: row, anchorChecked: !checked };
@@ -214,46 +223,65 @@ export default function Project() {
       newSchedule[col][row] = { ...newSchedule[col][row], checked: !checked };
       return newSchedule;
     });
+
     setStart(true);
   }
 
   function updateSchedule(e: any) {
     e.preventDefault();
-    if (start) {
-      const { anchorCol, anchorRow, startRow, anchorChecked } = anchor;
-      const col = e.currentTarget.getAttribute('col');
-      const row = e.currentTarget.getAttribute('row');
+    const { anchorCol, anchorRow, startRow, anchorChecked } = anchor;
+    const col = e.currentTarget.getAttribute('col');
+    const row = Number(e.currentTarget.getAttribute('row'));
 
+    if (start && anchorCol === col) {
+      let resultArr: cellInfo[][];
       setSchedule((current) => {
-        let resultArr;
         if (row > startRow) {
           const newSchedule = [...current];
+
           for (let i = startRow; i <= row; i++) {
             newSchedule[col][i] = { ...newSchedule[col][i], checked: anchorChecked };
           }
+
           if (anchorRow > row) {
             for (let i = row; i <= anchorRow; i++) {
               newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
             }
           }
+
+          // for (let i = 0; i < startRow; i++) {
+          //   newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
+          // }
+
           resultArr = [...newSchedule];
-        } else if (row < startRow) {
+        } else {
+          resultArr = [...current];
+        }
+
+        if (row < startRow) {
           const newSchedule = [...current];
+
           for (let i = row; i <= startRow; i++) {
             newSchedule[col][i] = { ...newSchedule[col][i], checked: anchorChecked };
           }
+
           if (anchorRow < row) {
             for (let i = anchorRow; i <= row; i++) {
               newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
             }
           }
+
           resultArr = [...newSchedule];
-        } else {
+        }
+
+        if (row === startRow) {
           resultArr = [...current];
         }
+
         setAnchor((currentAnchor) => {
           return { ...currentAnchor, anchorRow: row };
         });
+
         return resultArr;
       });
     }
