@@ -20,23 +20,15 @@ function useForm({ initialValues, onSubmit, validate }: FormProps): IFormReturns
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
-  const [submitCount, setSubmitCount] = useState(0);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target; // name = email 또는 password 등등
     setValues({ ...values, [name]: value });
   };
 
-  useEffect(() => {
-    if (submitCount > 0) {
-      setErrors(validate(values));
-    }
-  }, [values]);
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
-    setSubmitCount((prev) => prev + 1);
     setErrors(validate(values));
 
     setTimeout(() => {
@@ -50,6 +42,7 @@ function useForm({ initialValues, onSubmit, validate }: FormProps): IFormReturns
       } */
     }, 1000);
     // Promise 대신, 서버에 전송하는 코드 필요 : axios.post(values ...)
+    // isLoading
   };
 
   useEffect(() => {
