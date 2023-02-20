@@ -2,10 +2,10 @@ import Card from '@mui/material/Card';
 
 import RoomCardHeader from './HeaderRoomCard';
 import BottomBarRoomCard from './BottomBarRoomCard';
-import { IheaderProp, IbottomProp } from '../../../types/roomListType';
+import { headerProps, bottomProps } from '../../../types/roomListType';
 
-export default function RoomCard(prop: { headerProp: IheaderProp; bottombarProp: IbottomProp }) {
-  const { headerProp, bottombarProp } = prop;
+export default function RoomCard(prop: { headerProps: headerProps; bottombarProp: bottomProps }) {
+  const { headerProps, bottombarProp } = prop;
   return (
     <>
       <Card
@@ -20,7 +20,7 @@ export default function RoomCard(prop: { headerProp: IheaderProp; bottombarProp:
           marginBottom: '40px',
         }}
       >
-        <RoomCardHeader headerProp={headerProp} />
+        <RoomCardHeader headerProps={headerProps} />
         <BottomBarRoomCard bottombarProp={bottombarProp} />
       </Card>
     </>

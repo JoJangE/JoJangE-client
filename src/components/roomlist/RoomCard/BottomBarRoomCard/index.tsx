@@ -4,7 +4,7 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
 
-import { IbottomProp } from '../../../../types/roomListType';
+import { bottomProps } from '../../../../types/roomListType';
 
 const BottomBarContainer = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const BottomBarContainer = styled.div`
   cursor: pointer;
 `;
 
-export default function BottomBarRoomCard({ bottombarProp }: { bottombarProp: IbottomProp }) {
+export default function BottomBarRoomCard({ bottombarProp }: { bottombarProp: bottomProps }) {
   const router = useRouter();
   const { leader, participant } = bottombarProp;
   return (

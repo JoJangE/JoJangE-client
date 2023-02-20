@@ -1,13 +1,13 @@
-export interface IheaderProp {
+export interface headerProps {
   startdate: string;
   enddate: string;
   profile: string;
 }
 
-export interface IbottomProp {
+export interface bottomProps {
   id: string;
   leader: string;
   participant: string[];
 }
 
-export interface IroomList extends IheaderProp, IbottomProp {}
+export interface roomListProps extends headerProps, bottomProps {}

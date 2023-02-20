@@ -5,10 +5,10 @@ import React, { useState } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
-import { IheaderProp } from '../../../../types/roomListType';
+import { headerProps } from '../../../../types/roomListType';
 
-export default function RoomCardHeader({ headerProp }: { headerProp: IheaderProp }) {
-  const { startdate, enddate } = headerProp;
+export default function RoomCardHeader({ headerProps }: { headerProps: headerProps }) {
+  const { startdate, enddate } = headerProps;
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 

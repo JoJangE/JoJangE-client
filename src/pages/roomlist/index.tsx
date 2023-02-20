@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 import RoomCard from '../../components/roomlist/RoomCard';
 import RoomAddButton from '../../components/roomlist/RoomAddBotton';
-import { IheaderProp, IbottomProp, IroomList } from '../../types/roomListType';
+import { headerProps, bottomProps, roomListProps } from '../../types/roomListType';
 
-// const headerProp = { startdate, enddate, participant, profile };
+// const headerProps = { startdate, enddate, participant, profile };
 // const bottombarProp = { id, leader };
 
 const RoomContainer = styled.div`
@@ -68,11 +68,11 @@ export default function RoomList() {
   ];
   return (
     <RoomContainer>
-      {data.map((element: IroomList, i: number) => {
-        const { id, leader, startdate, enddate, participant, profile }: IroomList = element;
-        const headerProp: IheaderProp = { startdate, enddate, profile };
-        const bottombarProp: IbottomProp = { id, leader, participant };
-        return <RoomCard key={i} headerProp={headerProp} bottombarProp={bottombarProp} />;
+      {data.map((element: roomListProps, i: number) => {
+        const { id, leader, startdate, enddate, participant, profile }: roomListProps = element;
+        const headerProps: headerProps = { startdate, enddate, profile };
+        const bottombarProp: bottomProps = { id, leader, participant };
+        return <RoomCard key={i} headerProps={headerProps} bottombarProp={bottombarProp} />;
       })}
 
       <RoomAddButton />
