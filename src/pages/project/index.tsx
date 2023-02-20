@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import styled from '@emotion/styled';
 
 const ScheduleTitle = styled.div`
@@ -91,7 +91,7 @@ function Cell(props: cellProps) {
   return (
     <div
       style={{
-        // border: '1px solid black',
+        border: '1px solid black',
         width: '32px',
         height: '18px',
         backgroundColor: props.checked ? '#00897B' : 'white',
@@ -101,7 +101,9 @@ function Cell(props: cellProps) {
   );
 }
 
-const day = ['월', '화', '수', '목', '금', '토', '일'];
+const date = ['1/2', '1/3', '1/4', '1/5', '1/6', '1/7', '1/8'];
+
+const day = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 const timeArr: Array<number | string> = [];
 for (let i = 0; i <= 24; i++) {
   if (i === 0) {
@@ -124,17 +126,27 @@ function Schedule(props: {
           return (
             <div
               key={i}
-              style={{ width: '32px', height: '18px', textAlign: 'right', fontSize: '8px' }}
+              style={{
+                width: '32px',
+                height: '18px',
+                textAlign: 'right',
+                fontSize: '8px',
+                verticalAlign: 'middle',
+              }}
             >
               {element}
             </div>
           );
         })}
       </CellColumnContainer>
+
       {data.map((cellArr, i) => {
         return (
           <CellColumnContainer key={i}>
-            <div style={{ width: '32px', height: '18px', textAlign: 'center', fontSize: '10px' }}>
+            <div style={{ width: '32px', height: '12px', textAlign: 'center', fontSize: '10px' }}>
+              {date[i]}
+            </div>
+            <div style={{ width: '32px', height: '12px', textAlign: 'center', fontSize: '10px' }}>
               {day[i]}
             </div>
             {cellArr.map((cell, j) => {
@@ -162,7 +174,7 @@ function Schedule(props: {
 
 const CellContainer = styled.div`
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   flex-direction: row;
   margin-bottom: 10px;
@@ -181,6 +193,10 @@ interface cellInfo {
   checked: boolean;
 }
 
+function deepcopy<T>(element: T): T {
+  return JSON.parse(JSON.stringify(element));
+}
+
 function initializeSchedule() {
   const schedule: cellInfo[][] = [];
   for (let i = 0; i < 7; i++) {
@@ -193,103 +209,139 @@ function initializeSchedule() {
   return schedule;
 }
 
+interface anchorValue {
+  anchorCol: number;
+  anchorRow: number;
+  startRow: number;
+  anchorChecked: boolean;
+}
+
 export default function Project() {
   const [schedule, setSchedule] = useState<cellInfo[][]>(() => {
     return initializeSchedule();
   });
 
-  const [anchor, setAnchor] = useState({
+  const anchor = useRef<anchorValue>({
     anchorCol: 0,
     anchorRow: 0,
     startRow: 0,
     anchorChecked: false,
   });
 
-  const [start, setStart] = useState(false);
+  const beforeUpdateSchedule = useRef<cellInfo[][]>([]);
+
+  const start = useRef<boolean>(false);
 
   function startUpdateSchedule(e: any) {
     e.preventDefault();
-    const col = e.currentTarget.getAttribute('col');
-    const row = e.currentTarget.getAttribute('row');
+    const col = Number(e.currentTarget.getAttribute('col'));
+    const row = Number(e.currentTarget.getAttribute('row'));
 
     const { checked } = schedule[col][row];
 
-    setAnchor((current) => {
-      return { ...current, anchorCol: col, anchorRow: row, startRow: row, anchorChecked: !checked };
-    });
+    anchor.current = { anchorCol: col, anchorRow: row, startRow: row, anchorChecked: !checked };
 
     setSchedule((current) => {
-      const newSchedule = [...current];
+      const newSchedule = deepcopy([...current]);
       newSchedule[col][row] = { ...newSchedule[col][row], checked: !checked };
+      beforeUpdateSchedule.current = deepcopy([...newSchedule]);
       return newSchedule;
     });
 
-    setStart(true);
+    start.current = true;
+    console.log(beforeUpdateSchedule);
+  }
+
+  // 원본값, 현재값
+  function checkSchedule(
+    newSchedule: cellInfo[][],
+    startNum: number,
+    endNum: number,
+    col: number,
+    checked: boolean,
+  ) {
+    for (let i = 0; i < startNum; i++) {
+      newSchedule[col][i] = { ...beforeUpdateSchedule.current[col][i] };
+    }
+    for (let i = startNum; i <= endNum; i++) {
+      newSchedule[col][i] = { ...newSchedule[col][i], checked };
+    }
+    for (let i = endNum + 1; i < 24; i++) {
+      newSchedule[col][i] = { ...beforeUpdateSchedule.current[col][i] };
+    }
+    return newSchedule;
   }
 
   function updateSchedule(e: any) {
-    e.preventDefault();
-    const { anchorCol, anchorRow, startRow, anchorChecked } = anchor;
-    const col = e.currentTarget.getAttribute('col');
+    const { anchorCol, startRow, anchorChecked } = anchor.current;
+    const col = Number(e.currentTarget.getAttribute('col'));
     const row = Number(e.currentTarget.getAttribute('row'));
 
-    if (start && anchorCol === col) {
+    if (start.current && anchorCol === col) {
       let resultArr: cellInfo[][];
       setSchedule((current) => {
-        if (row > startRow) {
-          const newSchedule = [...current];
-
-          for (let i = startRow; i <= row; i++) {
-            newSchedule[col][i] = { ...newSchedule[col][i], checked: anchorChecked };
+        const newSchedule = deepcopy([...current]);
+        for (let i = 0; i < 24; i++) {
+          if (startRow > row) {
+            resultArr = checkSchedule(newSchedule, row, startRow, col, anchorChecked);
+          } else if (startRow < row) {
+            resultArr = checkSchedule(newSchedule, startRow, row, col, anchorChecked);
+          } else {
+            resultArr = deepcopy(beforeUpdateSchedule.current);
           }
-
-          if (anchorRow > row) {
-            for (let i = row; i <= anchorRow; i++) {
-              newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
-            }
-          }
-
-          // for (let i = 0; i < startRow; i++) {
-          //   newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
-          // }
-
-          resultArr = [...newSchedule];
-        } else {
-          resultArr = [...current];
         }
 
-        if (row < startRow) {
-          const newSchedule = [...current];
+        // if (row > startRow) {
+        //   const newSchedule = [...current];
 
-          for (let i = row; i <= startRow; i++) {
-            newSchedule[col][i] = { ...newSchedule[col][i], checked: anchorChecked };
-          }
+        //   for (let i = startRow; i <= row; i++) {
+        //     newSchedule[col][i] = { ...newSchedule[col][i], checked: anchorChecked };
+        //   }
 
-          if (anchorRow < row) {
-            for (let i = anchorRow; i <= row; i++) {
-              newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
-            }
-          }
+        //   if (anchorRow > row) {
+        //     for (let i = row; i <= anchorRow; i++) {
+        //       newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
+        //     }
+        //   }
 
-          resultArr = [...newSchedule];
-        }
+        //   // for (let i = 0; i < startRow; i++) {
+        //   //   newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
+        //   // }
 
-        if (row === startRow) {
-          resultArr = [...current];
-        }
+        //   resultArr = [...newSchedule];
+        // } else {
+        //   resultArr = [...current];
+        // }
 
-        setAnchor((currentAnchor) => {
-          return { ...currentAnchor, anchorRow: row };
-        });
+        // if (row < startRow) {
+        //   const newSchedule = [...current];
+
+        //   for (let i = row; i <= startRow; i++) {
+        //     newSchedule[col][i] = { ...newSchedule[col][i], checked: anchorChecked };
+        //   }
+
+        //   if (anchorRow < row) {
+        //     for (let i = anchorRow; i <= row; i++) {
+        //       newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
+        //     }
+        //   }
+
+        //   resultArr = [...newSchedule];
+        // }
+
+        // if (row === startRow) {
+        //   resultArr = [...current];
+        // }
+        anchor.current = { ...anchor.current, anchorRow: row };
 
         return resultArr;
       });
     }
   }
 
-  function endUpdateSchedule(e: any) {
-    e.preventDefault();
-    setStart(false);
+  function endUpdateSchedule(event: React.MouseEvent<HTMLDivElement>) {
+    beforeUpdateSchedule.current = deepcopy(schedule);
+    start.current = false;
   }
 
   const memoizedSchedule = useMemo(() => {
