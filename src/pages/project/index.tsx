@@ -77,6 +77,21 @@ const CombinedScaduleContainer = styled.div`
   margin-bottom: 20px;
 `;
 
+const TimeCell = styled.div`
+  width: 32px;
+  height: 18px;
+  text-align: right;
+  font-size: 8px;
+  vertical-align: middle;
+`;
+
+const TimeTableUICell = styled.div`
+  width: 32px;
+  height: 12px;
+  text-align: center;
+  font-size: 10px;
+`;
+
 interface cellProps {
   id: string;
   checked: boolean;
@@ -123,32 +138,15 @@ function Schedule(props: {
     <CellContainer>
       <CellColumnContainer key={100}>
         {timeArr.map((element, i) => {
-          return (
-            <div
-              key={i}
-              style={{
-                width: '32px',
-                height: '18px',
-                textAlign: 'right',
-                fontSize: '8px',
-                verticalAlign: 'middle',
-              }}
-            >
-              {element}
-            </div>
-          );
+          return <TimeCell key={i}>{element}</TimeCell>;
         })}
       </CellColumnContainer>
 
       {data.map((cellArr, i) => {
         return (
           <CellColumnContainer key={i}>
-            <div style={{ width: '32px', height: '12px', textAlign: 'center', fontSize: '10px' }}>
-              {date[i]}
-            </div>
-            <div style={{ width: '32px', height: '12px', textAlign: 'center', fontSize: '10px' }}>
-              {day[i]}
-            </div>
+            <TimeTableUICell>{date[i]}</TimeTableUICell>
+            <TimeTableUICell>{day[i]}</TimeTableUICell>
             {cellArr.map((cell, j) => {
               const id = `${i}${j}`.toString();
               const { time, checked } = cell;
@@ -290,48 +288,6 @@ export default function Project() {
             resultArr = deepcopy(beforeUpdateSchedule.current);
           }
         }
-
-        // if (row > startRow) {
-        //   const newSchedule = [...current];
-
-        //   for (let i = startRow; i <= row; i++) {
-        //     newSchedule[col][i] = { ...newSchedule[col][i], checked: anchorChecked };
-        //   }
-
-        //   if (anchorRow > row) {
-        //     for (let i = row; i <= anchorRow; i++) {
-        //       newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
-        //     }
-        //   }
-
-        //   // for (let i = 0; i < startRow; i++) {
-        //   //   newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
-        //   // }
-
-        //   resultArr = [...newSchedule];
-        // } else {
-        //   resultArr = [...current];
-        // }
-
-        // if (row < startRow) {
-        //   const newSchedule = [...current];
-
-        //   for (let i = row; i <= startRow; i++) {
-        //     newSchedule[col][i] = { ...newSchedule[col][i], checked: anchorChecked };
-        //   }
-
-        //   if (anchorRow < row) {
-        //     for (let i = anchorRow; i <= row; i++) {
-        //       newSchedule[col][i] = { ...newSchedule[col][i], checked: !anchorChecked };
-        //     }
-        //   }
-
-        //   resultArr = [...newSchedule];
-        // }
-
-        // if (row === startRow) {
-        //   resultArr = [...current];
-        // }
         anchor.current = { ...anchor.current, anchorRow: row };
 
         return resultArr;
