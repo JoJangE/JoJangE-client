@@ -7,8 +7,8 @@ import MenuItem from '@mui/material/MenuItem';
 
 import { headerProps } from '../../../../types/roomListType';
 
-export default function RoomCardHeader({ headerProps }: { headerProps: headerProps }) {
-  const { startdate, enddate } = headerProps;
+export default function RoomCardHeader({ headerProp }: { headerProp: headerProps }) {
+  const { startdate, enddate } = headerProp;
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 

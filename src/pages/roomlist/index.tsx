@@ -72,7 +72,7 @@ export default function RoomList() {
         const { id, leader, startdate, enddate, participant, profile }: roomListProps = element;
         const headerProp: headerProps = { startdate, enddate, profile };
         const bottombarProp: bottomProps = { id, leader, participant };
-        return <RoomCard key={i} headerProps={headerProp} bottombarProp={bottombarProp} />;
+        return <RoomCard key={i} headerProp={headerProp} bottombarProp={bottombarProp} />;
       })}
 
       <RoomAddButton />

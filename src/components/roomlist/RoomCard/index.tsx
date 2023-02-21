@@ -4,8 +4,8 @@ import RoomCardHeader from './HeaderRoomCard';
 import BottomBarRoomCard from './BottomBarRoomCard';
 import { headerProps, bottomProps } from '../../../types/roomListType';
 
-export default function RoomCard(prop: { headerProps: headerProps; bottombarProp: bottomProps }) {
-  const { headerProps, bottombarProp } = prop;
+export default function RoomCard(prop: { headerProp: headerProps; bottombarProp: bottomProps }) {
+  const { headerProp, bottombarProp } = prop;
   return (
     <>
       <Card
@@ -20,7 +20,7 @@ export default function RoomCard(prop: { headerProps: headerProps; bottombarProp
           marginBottom: '40px',
         }}
       >
-        <RoomCardHeader headerProps={headerProps} />
+        <RoomCardHeader headerProp={headerProp} />
         <BottomBarRoomCard bottombarProp={bottombarProp} />
       </Card>
     </>
