@@ -6,7 +6,7 @@ export const Input = styled.input<InputProps>`
   width: 320px;
   height: 48px;
   //  border: 1px solid rgba(0, 137, 123, 0.1);
-  border: ${(props) => (props.Error ? '1px solid red' : '1px solid rgba(0, 137, 123, 0.1)')};
+  border: ${(props) => (props.error ? '1px solid red' : '1px solid rgba(0, 137, 123, 0.1)')};
 
   margin-bottom: 20px;
   border-radius: 2px;

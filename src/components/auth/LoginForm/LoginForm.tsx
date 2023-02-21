@@ -35,7 +35,7 @@ export function LoginForm() {
           spellCheck='false'
           value={values.email}
           onChange={handleChange}
-          Error={Object.keys(errors).length !== 0}
+          error={Object.keys(errors).length !== 0}
         />
         <Input
           placeholder='비밀번호'
@@ -43,7 +43,7 @@ export function LoginForm() {
           value={values.password}
           onChange={handleChange}
           name='password'
-          Error={Object.keys(errors).length !== 0}
+          error={Object.keys(errors).length !== 0}
         />
       </S.InputLayout>
       <Button type='submit' disabled={submitting}>

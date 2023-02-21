@@ -4,8 +4,6 @@ import validate from '../../../utils/validate/AuthValidate';
 import useForm from '../../../hooks/common/useForm';
 import * as S from './SignUpForm.styles';
 
-// import signUpPost from '../../../hooks/auth/signUpPost';
-
 export function SignUpForm() {
   const { values, errors, handleChange, handleSubmit, submitting } = useForm({
     initialValues: {
@@ -17,6 +15,7 @@ export function SignUpForm() {
     onSubmit: () => {
       // api 도입후, signUpPost로 변경
       //  signUpPost
+
       alert(
         `회원가입 시도:::'email :', ${values.email}, 'password :', ${values.password}, 닉네임 : ${values.nickname}`,
       );
@@ -24,7 +23,7 @@ export function SignUpForm() {
     validate,
   });
 
-  const checkEmail = () => {
+  const checkEmailDuplication = () => {
     alert(`이메일 중복 체크 : ${values.email}`);
   };
 
@@ -33,13 +32,18 @@ export function SignUpForm() {
       <S.InputLayout>
         <Input
           placeholder='이메일 입력'
-          type='text'
+          type='email'
           spellCheck='false'
           name='email'
           onChange={handleChange}
-          //                errorMessage={errors.email}
+          error={Object.keys(errors).length !== 0 && errors.email !== undefined}
         />
-        <S.ConfirmButton type='button' onClick={checkEmail}>
+        <S.ConfirmButton
+          type='button'
+          onClick={() => {
+            checkEmailDuplication();
+          }}
+        >
           확인
         </S.ConfirmButton>
         <S.InputTitle htmlFor='nickname'>닉네임을 정해주세요</S.InputTitle>
@@ -50,7 +54,7 @@ export function SignUpForm() {
           value={values.nickname}
           onChange={handleChange}
           name='nickname'
-          //                errorMessage={errors.nickname}
+          error={Object.keys(errors).length !== 0 && errors.nickname !== undefined}
         />
         <Input
           placeholder='비밀번호 입력'
@@ -58,7 +62,7 @@ export function SignUpForm() {
           value={values.password}
           onChange={handleChange}
           name='password'
-          //                errorMessage={errors.password}
+          error={Object.keys(errors).length !== 0 && errors.password !== undefined}
         />
         <Input
           placeholder='비밀번호 확인'
@@ -66,7 +70,7 @@ export function SignUpForm() {
           value={values.passwordConfirmed}
           onChange={handleChange}
           name='passwordConfirmed'
-          //                errorMessage={errors.passwordConfirmed}
+          error={Object.keys(errors).length !== 0 && errors.passwordConfirmed !== undefined}
         />
       </S.InputLayout>
       <Button type='submit' disabled={submitting}>

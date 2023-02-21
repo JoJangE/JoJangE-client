@@ -3,11 +3,11 @@ import * as S from './Input.styles';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  Error: boolean;
+  error: boolean;
 }
 
-const Input = ({ name, ...props }: InputProps) => {
-  return <S.Input name={name} {...props} />;
+const Input = ({ name, error, ...props }: InputProps) => {
+  return <S.Input name={name} error={error} {...props} />;
 };
 
 export default Input;
