@@ -16,7 +16,8 @@ const BottomBarContainer = styled.div`
 
 export default function BottomBarRoomCard({ bottombarProp }: { bottombarProp: bottomProps }) {
   const router = useRouter();
-  const { leader, participant } = bottombarProp;
+  const { leader, participant, title } = bottombarProp;
+
   return (
     <BottomBarContainer
       onClick={(e: any) => {
@@ -29,7 +30,7 @@ export default function BottomBarRoomCard({ bottombarProp }: { bottombarProp: bo
     >
       <Typography color='black' sx={{ fontWeight: 700, marginBottom: 0, fontSize: 20 }}>
         {/* title */}
-        프로젝트 1
+        {title}
       </Typography>
       <AvatarGroup max={participant.length}>
         <Avatar alt={`${leader}`} />

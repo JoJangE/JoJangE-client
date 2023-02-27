@@ -7,6 +7,7 @@ export interface headerProps {
 export interface bottomProps {
   id: string;
   leader: string;
+  title: string;
   participant: string[];
 }
 
