@@ -1,12 +1,12 @@
-import type { InputHTMLAttributes } from 'react'
-import * as S from './Input.styles'
+import type { InputHTMLAttributes } from 'react';
+import * as S from './Input.styles';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string
+  name: string;
 }
 
 const Input = ({ name, ...props }: InputProps) => {
-  return <S.Input name={name} {...props} />
-}
+  return <S.Input name={name} {...props} />;
+};
 
-export default Input
+export default Input;

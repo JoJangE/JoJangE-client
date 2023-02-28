@@ -1,3 +1,4 @@
+import React, { useCallback, useRef } from 'react';
 import Button from '../../../common/Button/Button';
 import Input from '../../../common/Input/Input';
 import validate from '../../../../utils/validate/AuthValidate';
@@ -21,8 +22,6 @@ export function SignUpForm() {
     validate,
   });
 
-  console.log('values', values);
-
   return (
     <S.AddProjectForm onSubmit={handleSubmit}>
       <S.InputLayout>
@@ -32,23 +31,25 @@ export function SignUpForm() {
           spellCheck='false'
           name='title'
           onChange={handleChange}
-          //                errorMessage={errors.email}
         />
         <S.InputTitle>
           <span>진행기간</span>
           <S.DateInput
             required
-            aria-required='true'
-            data-placeholder='시작일 선택'
             type='date'
+            className='startdate'
+            data-placeholder='기간(시작)'
             value={values.startdate}
             onChange={handleChange}
             name='startdate'
             //                errorMessage={errors.nickname}
           />
+          ㅡ
           <S.DateInput
-            data-placeholder='마감일 선택'
+            required
             type='date'
+            className='enddate'
+            data-placeholder='기간(마감)'
             value={values.enddate}
             onChange={handleChange}
             name='enddate'
