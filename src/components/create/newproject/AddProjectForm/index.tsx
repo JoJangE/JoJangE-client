@@ -30,7 +30,9 @@ export function AddProjectForm() {
         participant: ['리더', '팀원'],
         profile: '',
       };
+
       setMockData([newProject, ...mockData]);
+
       router.push(paths.root).catch((err) => {
         console.log(err);
       });
