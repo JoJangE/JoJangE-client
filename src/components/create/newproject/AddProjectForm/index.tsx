@@ -1,22 +1,21 @@
-import React, { useCallback, useRef } from 'react';
 import Button from '../../../common/Button/Button';
 import Input from '../../../common/Input/Input';
-import validate from '../../../../utils/validate/AuthValidate';
+import validate from '../../../../utils/validate/createRoomValidate';
 import useForm from '../../../../hooks/common/useForm';
 import * as S from './AddProjectForm.styles';
 
 // import signUpPost from '../../../hooks/auth/signUpPost';
 
-export function SignUpForm() {
-  const { values, errors, handleChange, handleSubmit, submitting } = useForm({
+export function AddProjectForm() {
+  const { values, handleChange, errors, handleSubmit, submitting } = useForm({
     initialValues: {
       title: '',
-      startdate: '',
-      enddate: '',
+      startDate: '',
+      endDate: '',
     },
     onSubmit: () => {
       alert(
-        `방 생성 시도:::'title :', ${values.title}, 'startdate :', ${values.startdate}, enddate : ${values.enddate}`,
+        `방 생성 시도:::'title :', ${values.title}, 'startDate :', ${values.startDate}, endDate : ${values.endDate}`,
       );
     },
     validate,
@@ -37,22 +36,20 @@ export function SignUpForm() {
           <S.DateInput
             required
             type='date'
-            className='startdate'
             data-placeholder='기간(시작)'
-            value={values.startdate}
+            value={values.startDate}
             onChange={handleChange}
-            name='startdate'
+            name='startDate'
             //                errorMessage={errors.nickname}
           />
           ㅡ
           <S.DateInput
             required
             type='date'
-            className='enddate'
             data-placeholder='기간(마감)'
-            value={values.enddate}
+            value={values.endDate}
             onChange={handleChange}
-            name='enddate'
+            name='endDate'
             //                errorMessage={errors.password}
           />
         </S.InputTitle>
@@ -64,4 +61,4 @@ export function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default AddProjectForm;

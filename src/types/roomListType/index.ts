@@ -1,6 +1,7 @@
 export interface headerProps {
-  startdate: string;
-  enddate: string;
+  id: string;
+  startDate: string;
+  endDate: string;
   profile: string;
 }
 

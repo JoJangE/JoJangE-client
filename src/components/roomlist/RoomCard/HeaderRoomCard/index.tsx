@@ -7,9 +7,12 @@ import MenuItem from '@mui/material/MenuItem';
 
 import { headerProps } from '../../../../types/roomListType';
 import styled from '@emotion/styled';
+import { useRecoilState } from 'recoil';
+import { roomListState } from '../../../../recoil/rooms/atoms';
 
 export default function RoomCardHeader({ headerProp }: { headerProp: headerProps }) {
-  const { startdate, enddate } = headerProp;
+  const { id, startDate, endDate } = headerProp;
+  const [mockDate, setMockDate] = useRecoilState(roomListState);
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [inputModal, setInputModal] = useState(false);
@@ -37,6 +40,9 @@ export default function RoomCardHeader({ headerProp }: { headerProp: headerProps
   };
   const deleteProject = () => {
     handleClose();
+    console.log(`${id} 프로젝트 삭제 요청`);
+    const newProjectList = mockDate.filter((project) => project.id !== id);
+    setMockDate(newProjectList);
   };
 
   const InputModal = styled.div`
@@ -112,13 +118,13 @@ export default function RoomCardHeader({ headerProp }: { headerProp: headerProps
                 나가기
               </MenuItem>
               {/* 조건문: 방장일 경우 추가 예정 */}
-              <MenuItem key='deleteProject' onClick={deleteProject}>
+              <MenuItem key={`deleteProject-${id}`} onClick={deleteProject}>
                 프로젝트 삭제하기
               </MenuItem>
             </Menu>
           </div>
         }
-        subheader={`${startdate} ~ ${enddate}`}
+        subheader={`${startDate} ~ ${endDate}`}
       />
     </>
   );
