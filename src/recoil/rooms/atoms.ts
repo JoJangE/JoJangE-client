@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
-// import { recoilPersist } from 'recoil-persist';
-// const { persistAtom: projectList } = recoilPersist();
+import { recoilPersist } from 'recoil-persist';
+const { persistAtom: projectList } = recoilPersist();
 
 export const roomListState = atom({
   key: 'roomListState',
@@ -60,5 +60,5 @@ export const roomListState = atom({
       profile: '',
     },
   ],
-  //  effects_UNSTABLE: [projectList],
+  effects_UNSTABLE: [projectList],
 });
