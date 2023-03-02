@@ -20,6 +20,8 @@ export default function Home() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    /* 변경 예정
+    전역상태관리 tool에서 데이터를 받아오는 대신, 서버에서 데이터를 받아오는 코드로 변경 */
     setData(mockData);
   }, [mockData]);
 

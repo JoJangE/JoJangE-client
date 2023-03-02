@@ -26,11 +26,13 @@ export default function UpdateProjectList() {
     openInputModal();
     handleClose();
   };
+
   const exitRoom = (clickedId: string) => {
     handleClose();
     const newProjectList = mockDate.filter((project: roomListProps) => project.id !== clickedId);
     setMockDate(newProjectList);
   };
+
   const deleteProject = (clickedId: string) => {
     handleClose();
     const newProjectList = mockDate.filter((project: roomListProps) => project.id !== clickedId);

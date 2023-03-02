@@ -2,17 +2,10 @@ import Button from '../../../common/Button/Button';
 import Input from '../../../common/Input/Input';
 import validate from '../../../../utils/validate/createRoomValidate';
 import useForm from '../../../../hooks/common/useForm';
+import { onHandleSubmit } from '../../../../hooks/roomList/handleSubmit';
 import * as S from './AddProjectForm.styles';
-import { useRecoilState } from 'recoil';
-import { roomListState } from '../../../../recoil/rooms/atoms';
-import { useRouter } from 'next/router';
-import { paths } from '../../../../constants/paths';
 
 export function AddProjectForm() {
-  const router = useRouter();
-
-  const [mockData, setMockData] = useRecoilState(roomListState);
-
   const { values, handleChange, handleSubmit, submitting } = useForm({
     initialValues: {
       title: '',
@@ -21,24 +14,11 @@ export function AddProjectForm() {
       profile: '',
     },
     onSubmit: () => {
-      const newProject = {
-        id: Math.random().toString(36).substring(2, 11),
-        title: values.title,
-        leader: '리더',
-        startDate: values.startDate,
-        endDate: values.endDate,
-        participant: ['리더', '팀원'],
-        profile: '',
-      };
-
-      setMockData([newProject, ...mockData]);
-
-      router.push(paths.root).catch((err) => {
-        console.log(err);
-      });
+      AddProjectSubmit();
     },
     validate,
   });
+  const { AddProjectSubmit } = onHandleSubmit({ values });
 
   return (
     <S.AddProjectForm onSubmit={handleSubmit}>

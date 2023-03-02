@@ -1,13 +1,10 @@
-import router from 'next/router';
-import { useRecoilState } from 'recoil';
-import { paths } from '../../../constants/paths';
 import useForm from '../../../hooks/common/useForm';
-import { roomListState } from '../../../recoil/rooms/atoms';
 import { roomListProps } from '../../../types/roomListType';
 import validate from '../../../utils/validate/createRoomValidate';
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
 import * as S from './ChangeSettingsModal';
+import { onHandleSubmit } from '../../../hooks/roomList/handleSubmit';
 
 interface ChangeSettingsModalProps {
   contents: roomListProps[];
@@ -15,8 +12,6 @@ interface ChangeSettingsModalProps {
 }
 
 function ChangeSettingsModal({ contents, setInputModal }: ChangeSettingsModalProps) {
-  const [mockData, setMockData] = useRecoilState(roomListState);
-
   const { values, handleChange, handleSubmit, submitting } = useForm({
     initialValues: {
       id: contents[0].id,
@@ -26,35 +21,14 @@ function ChangeSettingsModal({ contents, setInputModal }: ChangeSettingsModalPro
       profile: '',
     },
     onSubmit: () => {
-      const targetIndex: number = mockData.findIndex(
-        (project: roomListProps) => project.id === contents[0].id,
-      );
-
-      const newProject = {
-        id: values.id, // 랜덤 문자열 생성용도 -> 후에 서버에서 처리
-        title: values.title,
-        leader: '리더',
-        startDate: values.startDate,
-        endDate: values.endDate,
-        participant: ['리더', '팀원'],
-        profile: '',
-      };
-
-      const oldList = [...mockData];
-      setMockData([
-        ...oldList.slice(0, targetIndex),
-        newProject,
-        ...oldList.slice(targetIndex + 1),
-      ]);
-
-      router.push(paths.root).catch((err) => {
-        console.log(err);
-      });
-
+      ChangeSettingSubmit();
       setInputModal(false);
     },
     validate,
   });
+  const { ChangeSettingSubmit } = onHandleSubmit({ values, contents });
+
+  console.log('전달받은 contents', contents);
 
   return (
     <S.InputModal>
