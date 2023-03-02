@@ -1,25 +1,16 @@
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import AvatarGroup from '@mui/material/AvatarGroup';
-import styled from '@emotion/styled';
 import { useRouter } from 'next/router';
-
 import { bottomProps } from '../../../../types/roomListType';
-
-const BottomBarContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 20px;
-  cursor: pointer;
-`;
+import * as S from './BottomBarContainer.styles';
 
 export default function BottomBarRoomCard({ bottombarProp }: { bottombarProp: bottomProps }) {
   const router = useRouter();
   const { leader, participant, title } = bottombarProp;
 
   return (
-    <BottomBarContainer
+    <S.BottomBarContainer
       onClick={(e: any) => {
         e.preventDefault();
         // 추후 id로 이동
@@ -38,6 +29,6 @@ export default function BottomBarRoomCard({ bottombarProp }: { bottombarProp: bo
           return <Avatar key={i} alt={`${element}`} />;
         })}
       </AvatarGroup>
-    </BottomBarContainer>
+    </S.BottomBarContainer>
   );
 }
