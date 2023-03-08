@@ -263,3 +263,13 @@ button {
   overflow: visible;
   cursor: pointer;
 }
+
+input[data-placeholder]::before {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+
+  color: #505050;
+}

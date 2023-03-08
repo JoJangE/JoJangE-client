@@ -1,7 +1,8 @@
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
-export const Input = styled.input`
-  padding-right: 100px;
+export const Input = styled.input<{ paddingRight?: string }>`
+  padding-right: ${(props) => (props.paddingRight === undefined ? '100px' : props.paddingRight)};
+
   width: 320px;
   height: 48px;
   border: 1px solid rgba(0, 137, 123, 0.1);
@@ -25,4 +26,4 @@ export const Input = styled.input`
     box-sizing: border-box;
     line-height: 29px;
   }
-`
+`;
